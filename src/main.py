@@ -14,7 +14,7 @@ Acredito que precisamos criar duas classes principais:
 
 # Constantes
 fps = 60
-tamanho_tela = (640, 480)
+tamanho_tela = (600, 700)
 
 # Essa cor é no padrao RGB
 cor_branco = (255, 255, 255)
