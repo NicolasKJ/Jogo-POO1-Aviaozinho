@@ -1,6 +1,6 @@
 import pygame
-from aviao import Aviao
-from inimigo import Inimigo
+from entities.aviao import Aviao
+from entities.inimigo import Inimigos
 
 """
 Acredito que precisamos criar duas classes principais:
