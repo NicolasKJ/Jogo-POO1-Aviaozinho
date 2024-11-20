@@ -30,7 +30,7 @@ tela = pygame.display.set_mode(tamanho_tela)
 tela.fill(cor_branco)
 
 aviao = Aviao
-imagem_path = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
+imagem_path = os.path.join(os.getcwd(), '..', 'assets', 'images','aviao.png')
 
 imagem_aviao = pygame.image.load(imagem_path).convert_alpha()
 tela.blit(imagem_aviao, (300, 250))
