@@ -1,5 +1,6 @@
 import pygame
-import time
+from aviao import Aviao
+from inimigo import Inimigo
 
 """
 Acredito que precisamos criar duas classes principais:
@@ -7,15 +8,6 @@ Acredito que precisamos criar duas classes principais:
 1. Do avião controlado pelo usuário
 2. Dos inimigos (barco ou aviões)
 """
-
-
-class Aviao:
-    pass
-
-
-class Inimigos:
-    pass
-
 
 # Constantes
 fps = 60

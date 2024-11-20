@@ -1,0 +1,2 @@
+class Inimigos:
+    pass
