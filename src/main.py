@@ -1,7 +1,9 @@
+import os.path
 import pygame
 import time
 from entities.aviao import Aviao
 from entities.inimigo import Inimigos
+import os
 
 """
 Acredito que precisamos criar duas classes principais:
@@ -27,10 +29,11 @@ pygame.display.set_caption('River Raid')
 tela = pygame.display.set_mode(tamanho_tela)
 tela.fill(cor_branco)
 
+aviao = Aviao
+imagem_path = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
 
-aviao_localizacao = AviaoLocalizacao(155, 125)
-imagem_aviao = pygame.image.load('aviao.png').convert_alpha()
-tela.blit(imagem_aviao, (aviao_localizacao.x, aviao_localizacao.y))
+imagem_aviao = pygame.image.load(imagem_path).convert_alpha()
+tela.blit(imagem_aviao, (300, 250))
 
 pygame.display.update()
 
