@@ -1,4 +1,5 @@
 import pygame
+import time
 from entities.aviao import Aviao
 from entities.inimigo import Inimigos
 
