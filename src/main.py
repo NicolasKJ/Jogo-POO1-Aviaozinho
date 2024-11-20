@@ -14,7 +14,7 @@ Acredito que precisamos criar duas classes principais:
 
 # Constantes
 fps = 60
-tamanho_tela = (640, 480)
+tamanho_tela = (600, 700)
 
 # Essa cor é no padrao RGB
 cor_branco = (255, 255, 255)
@@ -33,7 +33,7 @@ aviao = Aviao
 imagem_path = os.path.join(os.getcwd(), '..', 'assets', 'images','aviao.png')
 
 imagem_aviao = pygame.image.load(imagem_path).convert_alpha()
-tela.blit(imagem_aviao, (300, 250))
+tela.blit(imagem_aviao, (aviao.x, aviao.y))
 
 pygame.display.update()
 
