@@ -4,6 +4,7 @@ import pygame
 from entities.aviao import Aviao
 from entities.inimigo import Inimigos
 from entities.bullet import Bullet
+from entities.fuel_bar import FuelBar
 
 # Constantes
 fps = 60
@@ -22,6 +23,9 @@ tela = pygame.display.set_mode(tamanho_tela)
 
 # Pontos
 pontos = 0
+
+#barra combustivel
+fuel_bar = FuelBar(10, 10, 200, 20)
 
 # Fonte
 fonte = pygame.font.SysFont('space', 40, True, False)
@@ -53,6 +57,9 @@ velocidade = 1
 # Loop Principal
 while True:
     velocidade += 0.001
+    #barra de combustivel
+    dt = clock.tick(60) / 1000
+    fuel_bar.update(dt)
 
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
@@ -108,6 +115,7 @@ while True:
     # Desenha elementos na tela
     tela.fill(cor_branco)  # Limpa a tela
     tela.blit(imagem_aviao, (aviao.x, aviao.y))  # Avião
+    fuel_bar.draw(tela)
     tela.blit(imagem_inimigo1, (inimigo_1.x, inimigo_1.y))  # Inimigo
     tela.blit(texto_formatado, (525, 20))  # Pontuação
 
