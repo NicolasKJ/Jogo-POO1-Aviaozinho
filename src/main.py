@@ -1,6 +1,5 @@
 import os.path
 import sys
-
 import pygame
 import time
 from entities.aviao import Aviao
@@ -19,7 +18,7 @@ fps = 60
 tamanho_tela = (600, 700)
 
 # Essa cor é no padrao RGB
-cor_branco = (255, 255, 255)
+cor_branco = (35, 35, 35)
 
 # Iniciando o pygame
 pygame.init()
@@ -33,12 +32,25 @@ tela.fill(cor_branco)
 
 aviao = Aviao()
 
-imagem_path = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
+imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
+imagem_path_barco1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco4.png')
+imagem_path_barco2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco2.png')
+imagem_path_barco3 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco3.png')
+imagem_path_barco4 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco4.png')
 
-imagem_aviao = pygame.image.load(imagem_path).convert_alpha()
+
+imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
 tela.blit(imagem_aviao, (aviao.x, aviao.y))
 
+inimigo_1 = Inimigos(200, 50)
+imagem_inimigo1 = pygame.image.load(imagem_path_barco1).convert_alpha()
+tela.blit(imagem_inimigo1, (inimigo_1.x, inimigo_1.y))
+
+velocidade = 1
+
 while True:
+    velocidade += 0.001
+
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             pygame.quit()
@@ -49,31 +61,34 @@ while True:
 
     if teclas[pygame.K_RIGHT]:
         aviao.x += 3
+        if aviao.x > 539:
+            aviao.x = 539
 
     if teclas[pygame.K_LEFT]:
         aviao.x -= 3
+        if aviao.x < -20:
+            aviao.x = -20
 
     if teclas[pygame.K_UP]:
         aviao.y -= 3
+        if aviao.y < -5:
+            aviao.y = -5
 
     if teclas[pygame.K_DOWN]:
         aviao.y += 3
+        if aviao.y > 650:
+            aviao.y = 650
 
     # Deixando a tela em branco novamente
     tela.fill(cor_branco)
 
+    inimigo_1.movimentar(velocidade)
+
     tela.blit(imagem_aviao, (aviao.x, aviao.y))
+    tela.blit(imagem_inimigo1, (inimigo_1.x, inimigo_1.y))
     pygame.display.update()
 
     # Controlando o FPS
 
     # Controlando o FPS (frames por segundo)
     pygame.time.Clock().tick(60)
-
-pygame.display.update()
-
-time.sleep(5)
-print('River Raid')
-
-pygame.display.flip()
-pygame.quit()
