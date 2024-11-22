@@ -5,6 +5,8 @@ from entities.aviao import Aviao
 from entities.inimigo import Inimigos
 from entities.bullet import Bullet
 from entities.fuel_bar import FuelBar
+from entities.fuel import Fuel
+from random import randint
 
 # Constantes
 fps = 60
@@ -24,7 +26,7 @@ tela = pygame.display.set_mode(tamanho_tela)
 # Pontos
 pontos = 0
 
-#barra combustivel
+# Barra combustivel
 fuel_bar = FuelBar(10, 10, 200, 20)
 
 # Fonte
@@ -39,13 +41,16 @@ tela.fill(cor_branco)
 
 imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
 imagem_path_barco1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco1.png')
+imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
 
 imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
 imagem_inimigo1 = pygame.image.load(imagem_path_barco1).convert_alpha()
+imagem_fuel = pygame.image.load(imagem_path_fuel).convert_alpha()
 
 inimigo_1 = Inimigos(200, 50)
 
 balas = []
+fuels = []
 clock = pygame.time.Clock()
 
 # Variável para controlar intervalo entre tiros
@@ -53,11 +58,21 @@ ultimo_tiro = 0
 intervalo_tiro = 500  # em ms
 
 velocidade = 1
+taxa_geracao_fuel = 2 * 60  # em clocks
+
+tempo = 0  # Quanto tempo foi percorrido em clocks
 
 # Loop Principal
 while True:
+    tempo += 1
     velocidade += 0.001
-    #barra de combustivel
+
+    # Gerando combustivel
+    if tempo % taxa_geracao_fuel == 0:
+        combustivel = Fuel(randint(20, 550))  # 20
+        fuels.append(combustivel)
+
+    # Barra de combustivel
     dt = clock.tick(60) / 1000
     fuel_bar.update(dt)
 
@@ -114,6 +129,19 @@ while True:
 
     # Desenha elementos na tela
     tela.fill(cor_branco)  # Limpa a tela
+
+    indice_apagar = []
+
+    # Atualiza o movimento do combustivel
+    for i in range(len(fuels)):
+        fuels[i].movimentar(velocidade)
+        tela.blit(imagem_fuel, (fuels[i].x, fuels[i].y))
+        if fuels[i].y > 700:
+            indice_apagar.append(i)
+
+    for i in indice_apagar:
+        del fuels[i]
+
     tela.blit(imagem_aviao, (aviao.x, aviao.y))  # Avião
     fuel_bar.draw(tela)
     tela.blit(imagem_inimigo1, (inimigo_1.x, inimigo_1.y))  # Inimigo
