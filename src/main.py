@@ -71,8 +71,10 @@ tempo = 0  # Quanto tempo foi percorrido em clocks
 
 # Loop Principal
 while True:
+    tempo += 1
     velocidade += 0.001
-    #barra de combustivel
+
+    # barra de combustivel
     dt = clock.tick(60) / 1000
     fuel_bar.update(dt)
 
@@ -115,9 +117,7 @@ while True:
         if aviao.y > 650:
             aviao.y = 650
 
-
-    velocidade += 0.001
-    #barra de combustivel
+    # barra de combustivel
     dt = clock.tick(60) / 1000
     fuel_bar.update(dt)
 
@@ -143,6 +143,11 @@ while True:
         if inimigo.y > tamanho_tela[1]:
             inimigos.remove(inimigo)
 
+    # Cria combustivel
+    if tempo % taxa_geracao_fuel == 0:
+        combustivel = Fuel(randint(20, 550))
+        fuels.append(combustivel)
+
     # Mensagem de pontos
     mensagem = f'{pontos:03}'
     texto_formatado = fonte.render(mensagem, True, cor_preto)
@@ -158,7 +163,6 @@ while True:
                 if bala in balas:
                     balas.remove(bala)  
                 break  
-
 
     # Desenha elementos na tela
     tela.fill(cor_branco)  # Limpa a tela
