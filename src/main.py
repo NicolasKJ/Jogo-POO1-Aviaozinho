@@ -8,7 +8,7 @@ from entities.bullet import Bullet
 from entities.fuel_bar import FuelBar
 from entities.fuel import Fuel
 from random import randint
-
+from menu import exibir_menu
 # Constantes
 fps = 60
 tamanho_tela = (600, 700)
@@ -37,6 +37,8 @@ fonte = pygame.font.SysFont('space', 40, True, False)
 pygame.display.set_caption('River Raid')
 
 # Inicializando entidades
+exibir_menu(tela, tamanho_tela, cor_branco, cor_preto)
+
 aviao = Aviao()
 tela.fill(cor_branco)
 
