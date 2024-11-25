@@ -1,5 +1,5 @@
 class Aviao:
-    def __init__(self, x=300, y=250):
+    def __init__(self, x=300, y=350):
         self.x = x
         self.y = y
 

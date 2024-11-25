@@ -10,7 +10,7 @@ from entities.fuel import Fuel
 from random import randint
 from menu import exibir_menu
 # Constantes
-fps = 60
+fps = 120
 tamanho_tela = (600, 700)
 
 # Essa cor é no padrão RGB
@@ -58,7 +58,7 @@ clock = pygame.time.Clock()
 
 # Lista de inimigos
 inimigos = []
-tempo_criacao_inimigo = 2000  # Tempo entre inimigos em ms
+tempo_criacao_inimigo = 1000  # Tempo entre inimigos em ms
 ultimo_inimigo = 0
 
 
@@ -100,22 +100,22 @@ while True:
 
     # Movimento do avião
     if teclas[pygame.K_RIGHT]:
-        aviao.x += 3
+        aviao.x += 6
         if aviao.x > 539:
             aviao.x = 539
 
     if teclas[pygame.K_LEFT]:
-        aviao.x -= 3
+        aviao.x -= 6
         if aviao.x < -20:
             aviao.x = -20
 
     if teclas[pygame.K_UP]:
-        aviao.y -= 3
+        aviao.y -= 6
         if aviao.y < -5:
             aviao.y = -5
 
     if teclas[pygame.K_DOWN]:
-        aviao.y += 3
+        aviao.y += 6
         if aviao.y > 650:
             aviao.y = 650
 
