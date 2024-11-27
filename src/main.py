@@ -10,11 +10,12 @@ from entities.fuel import Fuel
 from random import randint
 from menu import exibir_menu
 # Constantes
-fps = 120
+fps = 250
 tamanho_tela = (600, 700)
 
 # Essa cor é no padrão RGB
-cor_branco = (35, 35, 35)
+cor_branco = (255, 255, 255)
+cor_cinza = (50, 50, 50)
 cor_preto = (0, 0, 0)
 
 # Iniciando o pygame
@@ -164,10 +165,21 @@ while True:
                 inimigos.remove(inimigo)  
                 if bala in balas:
                     balas.remove(bala)  
-                break  
+                break
+
+    # Colisão combustivel com o aviao
+    for index in range(len(fuels)):
+        combustivel_rect = pygame.Rect(fuels[index].x, fuels[index].y, 38, 38)
+        aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
+        if aviao_rect.colliderect(combustivel_rect):
+            fuel_bar.pegou_combustivel()
+            del fuels[index]
+            break
+
+
 
     # Desenha elementos na tela
-    tela.fill(cor_branco)  # Limpa a tela
+    tela.fill(cor_cinza)  # Limpa a tela
 
     indice_apagar = []
 

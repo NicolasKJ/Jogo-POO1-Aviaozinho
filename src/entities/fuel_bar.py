@@ -1,6 +1,7 @@
 # entities/fuel_bar.py
 import pygame
 
+
 class FuelBar:
     def __init__(self, x, y, width, height):
         self.x = x
@@ -21,6 +22,11 @@ class FuelBar:
             self.color = (255, 0, 0)  # Vermelho se estiver baixo
         elif self.fuel < 60:
             self.color = (255, 165, 0)  # Laranja
+        else:
+            self.color = (0, 255, 0)  # Verde
+
+    def pegou_combustivel(self):
+        self.fuel = 100
 
     def draw(self, screen):
         # Calcula a largura da barra com base no combustível restante
