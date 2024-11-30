@@ -48,14 +48,14 @@ while True:
     tela.fill(cor_branco)
 
     imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
-    imagem_path_barco1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'barco1.png')
+    imagem_path_nave1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_1.png')
+    imagem_path_nave2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_2.png')
     imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
 
     imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
-    imagem_inimigo1 = pygame.image.load(imagem_path_barco1).convert_alpha()
+    imagem_nave1 = pygame.image.load(imagem_path_nave1).convert_alpha()
+    imagem_nave2 = pygame.image.load(imagem_path_nave2).convert_alpha()
     imagem_fuel = pygame.image.load(imagem_path_fuel).convert_alpha()
-
-    inimigo_1 = Inimigos(200, 50)
 
     balas = []
     fuels = []
@@ -66,13 +66,12 @@ while True:
     tempo_criacao_inimigo = 1000  # Tempo entre inimigos em ms
     ultimo_inimigo = 0
 
-
     # Variável para controlar intervalo entre tiros
     ultimo_tiro = 0
     intervalo_tiro = 500  # em ms
     jogo_pausado = False
     velocidade = 1
-    taxa_geracao_fuel = 2 * 60  # em clocks
+    taxa_geracao_fuel = 3.5 * 60  # em clocks
 
     # Variavel para determinar a aleatoriedade da geracao de inimigos
     fim = 60
@@ -126,8 +125,8 @@ while True:
 
         if teclas[pygame.K_UP]:
             aviao.y -= 6
-            if aviao.y < -5:
-                aviao.y = -5
+            if aviao.y < 35:
+                aviao.y = 35
 
         if teclas[pygame.K_DOWN]:
             aviao.y += 6
@@ -149,10 +148,16 @@ while True:
         if tempo % 200 == 0 and fim >= 40:
             fim -= 2
         if randint(1, fim) == 10:
-            x_random = random.randint(0, tamanho_tela[0] - imagem_inimigo1.get_width())
-            novo_inimigo = Inimigos(x_random, 0)
-            inimigos.append(novo_inimigo)
-            ultimo_inimigo = agora
+            if randint(1, 3) == 3:
+                x_random = random.randint(0, tamanho_tela[0] - imagem_nave2.get_width())
+                novo_inimigo = Inimigos(x_random, 35, 2, 3)
+                inimigos.append(novo_inimigo)
+                ultimo_inimigo = agora
+            else:
+                x_random = random.randint(0, tamanho_tela[0] - imagem_nave1.get_width())
+                novo_inimigo = Inimigos(x_random, 35, 1)
+                inimigos.append(novo_inimigo)
+                ultimo_inimigo = agora
 
         # Atualizar inimigos
         for inimigo in inimigos[:]:
@@ -169,20 +174,30 @@ while True:
 
         # Mensagem de pontos
         mensagem = f'{pontos:03}'
-        texto_formatado = fonte.render(mensagem, True, cor_preto)
+        texto_formatado = fonte.render(mensagem, True, cor_branco)
 
         # Colisão bullets com inimigo
         for bala in balas[:]:
             bala_rect = pygame.Rect(bala.x, bala.y, 5, 10)
             for inimigo in inimigos[:]:
-                inimigo_rect = pygame.Rect(inimigo.x, inimigo.y, imagem_inimigo1.get_width(), imagem_inimigo1.get_height())
-                if bala_rect.colliderect(inimigo_rect):
-                    inimigo.vida -= 1
-                    if inimigo.vida <= 0:
-                        pontos += 50
-                        inimigos.remove(inimigo)
-                    if bala in balas:
-                        balas.remove(bala)
+                if inimigo.tipo == 1:
+                    inimigo_rect = pygame.Rect(inimigo.x, inimigo.y, imagem_nave1.get_width(), imagem_nave1.get_height())
+                    if bala_rect.colliderect(inimigo_rect):
+                        inimigo.vida -= 1
+                        if inimigo.vida <= 0:
+                            pontos += 50
+                            inimigos.remove(inimigo)
+                        if bala in balas:
+                            balas.remove(bala)
+                elif inimigo.tipo == 2:
+                    inimigo_rect = pygame.Rect(inimigo.x, inimigo.y, imagem_nave2.get_width(), imagem_nave2.get_height())
+                    if bala_rect.colliderect(inimigo_rect):
+                        inimigo.vida -= 1
+                        if inimigo.vida <= 0:
+                            pontos += 100
+                            inimigos.remove(inimigo)
+                        if bala in balas:
+                            balas.remove(bala)
 
         # Colisão combustivel com o aviao
         for index in range(len(fuels)):
@@ -195,10 +210,16 @@ while True:
 
         # Colisao inimigos com o aviao
         for index in range(len(inimigos)):
-            inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_inimigo1.get_width(), imagem_inimigo1.get_height())
-            aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
-            if aviao_rect.colliderect(inimigo_rect):
-                aviao.morreu = True
+            if inimigos[index].tipo == 1:
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave1.get_width(), imagem_nave1.get_height())
+                aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
+                if aviao_rect.colliderect(inimigo_rect):
+                    aviao.morreu = True
+            elif inimigos[index].tipo == 2:
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave2.get_width(), imagem_nave2.get_height())
+                aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
+                if aviao_rect.colliderect(inimigo_rect):
+                    aviao.morreu = True
 
         # Desenha elementos na tela
         tela.fill(cor_cinza)  # Limpa a tela
@@ -217,11 +238,14 @@ while True:
 
         tela.blit(imagem_aviao, (aviao.x, aviao.y))  # Avião
         fuel_bar.draw(tela)
-        tela.blit(texto_formatado, (525, 20))  #Pontuação
+        tela.blit(texto_formatado, (525, 20))  # Pontuação
 
         # Desenhar inimigos
         for inimigo in inimigos:
-            tela.blit(imagem_inimigo1, (inimigo.x, inimigo.y))
+            if inimigo.tipo == 1:
+                tela.blit(imagem_nave1, (inimigo.x, inimigo.y))
+            elif inimigo.tipo == 2:
+                tela.blit(imagem_nave2, (inimigo.x, inimigo.y))
 
         # Desenha e atualiza balas
         for bala in balas[:]:
