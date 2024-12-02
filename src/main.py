@@ -180,7 +180,7 @@ while True:
             fim -= 2
         if randint(1, fim) == 10:
             if randint(1, 3) == 3:
-                if pontos > 500:
+                if pontos > 500 and pontos % 100 > 50:
                     x_random = random.randint(0, tamanho_tela[0] - imagem_nave3.get_width())
                     novo_inimigo = Inimigos(x_random, 35, 3, 5)
                     inimigos.append(novo_inimigo)
