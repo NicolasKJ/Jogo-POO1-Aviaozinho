@@ -94,7 +94,7 @@ while True:
 
     # Loop Principal
     while True:
-
+        
         if aviao.morreu:
             break
 
@@ -112,6 +112,10 @@ while True:
             pygame.display.update()
             clock.tick(fps)
             continue
+        
+        # Mensagem de pontos
+        mensagem = f'{pontos:03}'
+        texto_formatado = fonte.render(mensagem, True, cor_branco)
 
         tempo += 1
         velocidade += 0.0015
@@ -206,9 +210,7 @@ while True:
             combustivel = Fuel(randint(20, 550))
             fuels.append(combustivel)
 
-        # Mensagem de pontos
-        mensagem = f'{pontos:03}'
-        texto_formatado = fonte.render(mensagem, True, cor_branco)
+        
 
         # Colisão bullets com inimigo
         for bala in balas[:]:
@@ -288,8 +290,6 @@ while True:
             del fuels[i]
 
         tela.blit(imagem_aviao, (aviao.x, aviao.y))  # Avião
-        fuel_bar.draw(tela)
-        tela.blit(texto_formatado, (525, 20))  # Pontuação
 
         # Desenhar inimigos
         for inimigo in inimigos:
@@ -314,6 +314,8 @@ while True:
         for index in range(len(balas)):
             if balas[index].y <= -10:
                 del balas[index]
+        fuel_bar.draw(tela)
+        tela.blit(texto_formatado, (525, 20))  # Pontuação
 
         # Atualiza a tela
         pygame.display.update()
