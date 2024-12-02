@@ -40,12 +40,14 @@ tela = pygame.display.set_mode(tamanho_tela)
 imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
 imagem_path_nave1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_1.png')
 imagem_path_nave2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_2.png')
+imagem_path_nave3 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'maicon.png')
 imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
 imagem_path_fundo = os.path.join(os.getcwd(), '..', 'assets', 'images', 'tela_fundo.png')
 
 imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
 imagem_nave1 = pygame.image.load(imagem_path_nave1).convert_alpha()
 imagem_nave2 = pygame.image.load(imagem_path_nave2).convert_alpha()
+imagem_nave3 = pygame.image.load(imagem_path_nave3).convert_alpha()
 imagem_fuel = pygame.image.load(imagem_path_fuel).convert_alpha()
 imagem_fundo = pygame.image.load(imagem_path_fundo).convert_alpha()
 
@@ -137,22 +139,22 @@ while True:
         teclas = pygame.key.get_pressed()
 
         # Movimento do avião
-        if teclas[pygame.K_RIGHT]:
+        if teclas[pygame.K_RIGHT] or teclas[pygame.K_d] :
             aviao.x += 6
             if aviao.x > 539:
                 aviao.x = 539
 
-        if teclas[pygame.K_LEFT]:
+        if teclas[pygame.K_LEFT] or teclas[pygame.K_a] :
             aviao.x -= 6
             if aviao.x < -20:
                 aviao.x = -20
 
-        if teclas[pygame.K_UP]:
+        if teclas[pygame.K_UP] or teclas[pygame.K_w] :
             aviao.y -= 6
             if aviao.y < 35:
                 aviao.y = 35
 
-        if teclas[pygame.K_DOWN]:
+        if teclas[pygame.K_DOWN] or teclas[pygame.K_s] :
             aviao.y += 6
             if aviao.y > 650:
                 aviao.y = 650
@@ -174,10 +176,17 @@ while True:
             fim -= 2
         if randint(1, fim) == 10:
             if randint(1, 3) == 3:
-                x_random = random.randint(0, tamanho_tela[0] - imagem_nave2.get_width())
-                novo_inimigo = Inimigos(x_random, 35, 2, 3)
-                inimigos.append(novo_inimigo)
-                ultimo_inimigo = agora
+                if pontos > 500:
+                    x_random = random.randint(0, tamanho_tela[0] - imagem_nave3.get_width())
+                    novo_inimigo = Inimigos(x_random, 35, 3, 5)
+                    inimigos.append(novo_inimigo)
+                    ultimo_inimigo = agora
+                else:
+                    x_random = random.randint(0, tamanho_tela[0] - imagem_nave2.get_width())
+                    novo_inimigo = Inimigos(x_random, 35, 2, 3)
+                    inimigos.append(novo_inimigo)
+                    ultimo_inimigo = agora
+                
             else:
                 x_random = random.randint(0, tamanho_tela[0] - imagem_nave1.get_width())
                 novo_inimigo = Inimigos(x_random, 35, 1)
@@ -223,6 +232,15 @@ while True:
                             inimigos.remove(inimigo)
                         if bala in balas:
                             balas.remove(bala)
+                elif inimigo.tipo == 3:
+                    inimigo_rect = pygame.Rect(inimigo.x, inimigo.y, imagem_nave3.get_width(), imagem_nave3.get_height())
+                    if bala_rect.colliderect(inimigo_rect):
+                        inimigo.vida -= 1
+                        if inimigo.vida <= 0:
+                            pontos += 500
+                            inimigos.remove(inimigo)
+                        if bala in balas:
+                            balas.remove(bala)
 
         # Colisão combustivel com o aviao
         for index in range(len(fuels)):
@@ -243,6 +261,11 @@ while True:
                     aviao.morreu = True
             elif inimigos[index].tipo == 2:
                 inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave2.get_width(), imagem_nave2.get_height())
+                aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
+                if aviao_rect.colliderect(inimigo_rect):
+                    aviao.morreu = True
+            elif inimigos[index].tipo == 3:
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave3.get_width(), imagem_nave3.get_height())
                 aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
                 if aviao_rect.colliderect(inimigo_rect):
                     aviao.morreu = True
@@ -274,6 +297,10 @@ while True:
                 tela.blit(imagem_nave1, (inimigo.x, inimigo.y))
             elif inimigo.tipo == 2:
                 tela.blit(imagem_nave2, (inimigo.x, inimigo.y))
+            elif inimigo.tipo == 3:
+                tela.blit(imagem_nave3, (inimigo.x, inimigo.y))
+            
+            
 
         # Desenha e atualiza balas
         for bala in balas[:]:
