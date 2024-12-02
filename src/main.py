@@ -120,16 +120,22 @@ while True:
         tempo += 1
         velocidade += 0.0015
 
-        if len(fundos) == 0 or fundos[0].y >= 0:
-            fundo = Fundo(0, -2000)
+        if len(fundos) == 0:
+            fundo = Fundo(0, -2300)
+            fundos.append(fundo)
+
+        if fundos[0].y >= 0 and len(fundos) == 1:
+            fundo = Fundo(0, -3000)
             fundos.append(fundo)
 
         for i in range(len(fundos)):
-            fundos[i].y += velocidade/2
-            tela.blit(imagem_fundo, (fundos[i].x, fundos[i].y))
+            if fundos[i].y > 700:
+                del fundos[i]
+                break
 
-        if len(fundos) > 2:
-            del fundos[0]
+        for i in range(len(fundos)):
+            fundos[i].y += velocidade / 2
+            tela.blit(imagem_fundo, (fundos[i].x, fundos[i].y))
 
         # Atribuir pontuacao ao longo do tempo
         if tempo % 14 == 0:
