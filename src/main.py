@@ -26,6 +26,10 @@ while True:
     pygame.init()
     pygame.mixer.init()
 
+    #som 
+    disparo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'pew.mp3'))
+    combustivel_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'abastecer.mp3'))
+
     pygame.display.set_caption('River Raid')
     tela = pygame.display.set_mode(tamanho_tela)
 
@@ -143,6 +147,7 @@ while True:
             nova_bala = Bullet(aviao.x + imagem_aviao.get_width() // 2 - 2, aviao.y)
             balas.append(nova_bala)
             ultimo_tiro = agora
+            disparo_sound.play()
 
         # Criar novos inimigos
         if tempo % 200 == 0 and fim >= 40:
@@ -206,6 +211,7 @@ while True:
             if aviao_rect.colliderect(combustivel_rect):
                 fuel_bar.pegou_combustivel()
                 del fuels[index]
+                combustivel_sound.play()
                 break
 
         # Colisao inimigos com o aviao
