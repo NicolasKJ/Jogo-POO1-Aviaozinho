@@ -62,7 +62,8 @@ while True:
     fonte = pygame.font.SysFont('space', 40, True, False)
 
     # Colocando legenda no topo da tela
-    pygame.display.set_caption('River Raid')
+    pygame.display.set_caption('Olha o aviaozinho')
+    pygame.display.set_icon(imagem_aviao)
 
     exibir_menu(tela, tamanho_tela, cor_branco, cor_preto)
 
@@ -186,11 +187,12 @@ while True:
             fim -= 2
         if randint(1, fim) == 10:
             if randint(1, 3) == 3:
-                if pontos > 500 and pontos % 100 > 50:
-                    x_random = random.randint(0, tamanho_tela[0] - imagem_nave3.get_width())
-                    novo_inimigo = Inimigos(x_random, 35, 3, 5)
-                    inimigos.append(novo_inimigo)
-                    ultimo_inimigo = agora
+                if pontos > 500:
+                    if randint(1, 2) == 2:
+                        x_random = random.randint(0, tamanho_tela[0] - imagem_nave3.get_width())
+                        novo_inimigo = Inimigos(x_random, 35, 3, 5)
+                        inimigos.append(novo_inimigo)
+                        ultimo_inimigo = agora
                 else:
                     x_random = random.randint(0, tamanho_tela[0] - imagem_nave2.get_width())
                     novo_inimigo = Inimigos(x_random, 35, 2, 3)
