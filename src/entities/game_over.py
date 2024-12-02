@@ -3,8 +3,9 @@ import sys
 import os
 
 
-def morreu(tela, tamanho_tela, cor_branco):
+def morreu(tela, tamanho_tela, cor_branco, pontos):
     fonte_opcoes = pygame.font.SysFont('space', 50, True, False)
+    fonte_pontos = pygame.font.SysFont('space', 40, True, False)  # Fonte para os pontos
     menu_ativo = True
 
     imagem_path_game_over = os.path.join(os.getcwd(), '..', 'assets', 'images', 'game_over.png')
@@ -15,8 +16,11 @@ def morreu(tela, tamanho_tela, cor_branco):
         tela.blit(imagem_menu, (0, 0))
 
         botao_menu = fonte_opcoes.render("Voltar ao menu", True, cor_branco)
-
         tela.blit(botao_menu, (tamanho_tela[0] // 2 - botao_menu.get_width() // 2, 450))
+
+        # Renderizando os pontos na tela
+        texto_pontos = fonte_pontos.render(f"Pontos: {pontos:03}", True, cor_branco)
+        tela.blit(texto_pontos, (tamanho_tela[0] // 2 - texto_pontos.get_width() // 2, 350))
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:

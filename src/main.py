@@ -221,6 +221,9 @@ while True:
                 if aviao_rect.colliderect(inimigo_rect):
                     aviao.morreu = True
 
+        if fuel_bar.fuel <= 0:
+            aviao.morreu = True
+
         # Desenha elementos na tela
         tela.fill(cor_cinza)  # Limpa a tela
 
@@ -268,5 +271,5 @@ while True:
 
         if aviao.morreu:
             while True:
-                if morreu(tela, tamanho_tela, cor_branco):
+                if morreu(tela, tamanho_tela, cor_branco, pontos):
                     break
