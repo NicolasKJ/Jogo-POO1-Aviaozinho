@@ -2,6 +2,7 @@ import os.path
 import random
 import sys
 import pygame
+from entities.fundo import Fundo
 from entities.aviao import Aviao
 from entities.inimigo import Inimigos
 from entities.bullet import Bullet
@@ -11,28 +12,44 @@ from random import randint
 from entities.menu import exibir_menu
 from entities.game_over import morreu
 
+# Constantes
+fps = 200
+tamanho_tela = (600, 700)
+
+# Essa cor é no padrão RGB
+cor_branco = (255, 255, 255)
+cor_cinza = (50, 50, 50)
+cor_preto = (0, 0, 0)
+
+# Iniciando o pygame
+pygame.init()
+pygame.mixer.init()
+
+# Som
+disparo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'pew.mp3'))
+combustivel_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'abastecer.mp3'))
+fundo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'musica_fundo.mp3'))
+
+# Tocando sempre a musica
+pygame.mixer.music.load("../assets/sounds/musica_fundo.mp3")
+pygame.mixer.music.play(-1)
+
+pygame.display.set_caption('River Raid')
+tela = pygame.display.set_mode(tamanho_tela)
+
+imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
+imagem_path_nave1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_1.png')
+imagem_path_nave2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_2.png')
+imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
+imagem_path_fundo = os.path.join(os.getcwd(), '..', 'assets', 'images', 'tela_fundo.png')
+
+imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
+imagem_nave1 = pygame.image.load(imagem_path_nave1).convert_alpha()
+imagem_nave2 = pygame.image.load(imagem_path_nave2).convert_alpha()
+imagem_fuel = pygame.image.load(imagem_path_fuel).convert_alpha()
+imagem_fundo = pygame.image.load(imagem_path_fundo).convert_alpha()
 
 while True:
-    # Constantes
-    fps = 250
-    tamanho_tela = (600, 700)
-
-    # Essa cor é no padrão RGB
-    cor_branco = (255, 255, 255)
-    cor_cinza = (50, 50, 50)
-    cor_preto = (0, 0, 0)
-
-    # Iniciando o pygame
-    pygame.init()
-    pygame.mixer.init()
-
-    #som 
-    disparo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'pew.mp3'))
-    combustivel_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'abastecer.mp3'))
-
-    pygame.display.set_caption('River Raid')
-    tela = pygame.display.set_mode(tamanho_tela)
-
     # Pontos
     pontos = 0
 
@@ -51,16 +68,7 @@ while True:
     aviao = Aviao()
     tela.fill(cor_branco)
 
-    imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
-    imagem_path_nave1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_1.png')
-    imagem_path_nave2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_2.png')
-    imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
-
-    imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
-    imagem_nave1 = pygame.image.load(imagem_path_nave1).convert_alpha()
-    imagem_nave2 = pygame.image.load(imagem_path_nave2).convert_alpha()
-    imagem_fuel = pygame.image.load(imagem_path_fuel).convert_alpha()
-
+    fundos = []
     balas = []
     fuels = []
     clock = pygame.time.Clock()
@@ -84,6 +92,7 @@ while True:
 
     # Loop Principal
     while True:
+
         if aviao.morreu:
             break
 
@@ -103,7 +112,18 @@ while True:
             continue
 
         tempo += 1
-        velocidade += 0.001
+        velocidade += 0.0015
+
+        if len(fundos) == 0 or fundos[0].y >= 0:
+            fundo = Fundo(0, -2000)
+            fundos.append(fundo)
+
+        for i in range(len(fundos)):
+            fundos[i].y += velocidade/2
+            tela.blit(imagem_fundo, (fundos[i].x, fundos[i].y))
+
+        if len(fundos) > 2:
+            del fundos[0]
 
         # Atribuir pontuacao ao longo do tempo
         if tempo % 14 == 0:
@@ -144,13 +164,13 @@ while True:
         # Controle de disparo
         agora = pygame.time.get_ticks()
         if teclas[pygame.K_SPACE] and (agora - ultimo_tiro > intervalo_tiro):
+            disparo_sound.play()
             nova_bala = Bullet(aviao.x + imagem_aviao.get_width() // 2 - 2, aviao.y)
             balas.append(nova_bala)
             ultimo_tiro = agora
-            disparo_sound.play()
 
         # Criar novos inimigos
-        if tempo % 200 == 0 and fim >= 40:
+        if tempo % 200 == 0 and fim >= 20:
             fim -= 2
         if randint(1, fim) == 10:
             if randint(1, 3) == 3:
@@ -231,7 +251,6 @@ while True:
             aviao.morreu = True
 
         # Desenha elementos na tela
-        tela.fill(cor_cinza)  # Limpa a tela
 
         indice_apagar = []
 
