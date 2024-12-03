@@ -62,7 +62,7 @@ while True:
     fonte = pygame.font.SysFont('space', 40, True, False)
 
     # Colocando legenda no topo da tela
-    pygame.display.set_caption('Olha o aviaozinho')
+    pygame.display.set_caption('Olha o Aviãozinho')
     pygame.display.set_icon(imagem_aviao)
 
     exibir_menu(tela, tamanho_tela, cor_branco, cor_preto)
@@ -265,17 +265,17 @@ while True:
         # Colisao inimigos com o aviao
         for index in range(len(inimigos)):
             if inimigos[index].tipo == 1:
-                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave1.get_width(), imagem_nave1.get_height())
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave1.get_width(), imagem_nave1.get_height()) 
                 aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
                 if aviao_rect.colliderect(inimigo_rect):
                     aviao.morreu = True
             elif inimigos[index].tipo == 2:
-                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave2.get_width(), imagem_nave2.get_height())
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave2.get_width(), imagem_nave2.get_height())  
                 aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
                 if aviao_rect.colliderect(inimigo_rect):
                     aviao.morreu = True
             elif inimigos[index].tipo == 3:
-                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave3.get_width(), imagem_nave3.get_height())
+                inimigo_rect = pygame.Rect(inimigos[index].x, inimigos[index].y, imagem_nave3.get_width(), imagem_nave3.get_height())  
                 aviao_rect = pygame.Rect(aviao.x, aviao.y, imagem_aviao.get_width(), imagem_aviao.get_height())
                 if aviao_rect.colliderect(inimigo_rect):
                     aviao.morreu = True
