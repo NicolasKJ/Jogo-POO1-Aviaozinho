@@ -2,15 +2,15 @@ import os.path
 import random
 import sys
 import pygame
-from entities.fundo import Fundo
-from entities.aviao import Aviao
-from entities.inimigo import Inimigos
-from entities.bullet import Bullet
-from entities.fuel_bar import FuelBar
-from entities.fuel import Fuel
 from random import randint
-from entities.menu import exibir_menu
-from entities.game_over import morreu
+from src.entities.fundo import Fundo
+from src.entities.aviao import Aviao
+from src.entities.inimigo import Inimigos
+from src.entities.bullet import Bullet
+from src.entities.fuel_bar import FuelBar
+from src.entities.fuel import Fuel
+from src.entities.menu import exibir_menu
+from src.entities.game_over import morreu
 
 # Constantes
 fps = 200
@@ -26,23 +26,23 @@ pygame.init()
 pygame.mixer.init()
 
 # Som
-disparo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'pew.mp3'))
-combustivel_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'abastecer.mp3'))
-fundo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'sounds', 'musica_fundo.mp3'))
+disparo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), 'assets', 'sounds', 'pew.mp3'))
+combustivel_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), 'assets', 'sounds', 'abastecer.mp3'))
+fundo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), 'assets', 'sounds', 'musica_fundo.mp3'))
 
 # Tocando sempre a musica
-pygame.mixer.music.load("../assets/sounds/musica_fundo.mp3")
+pygame.mixer.music.load("assets/sounds/musica_fundo.mp3")
 pygame.mixer.music.play(-1)
 
 pygame.display.set_caption('Olha o Aviãozinho')
 tela = pygame.display.set_mode(tamanho_tela)
 
-imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
-imagem_path_nave1 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_1.png')
-imagem_path_nave2 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'nave_2.png')
-imagem_path_nave3 = os.path.join(os.getcwd(), '..', 'assets', 'images', 'maicon.png')
-imagem_path_fuel = os.path.join(os.getcwd(), '..', 'assets', 'images', 'fuel.png')
-imagem_path_fundo = os.path.join(os.getcwd(), '..', 'assets', 'images', 'tela_fundo.png')
+imagem_path_aviao = os.path.join(os.getcwd(), 'assets', 'images', 'aviao.png')
+imagem_path_nave1 = os.path.join(os.getcwd(), 'assets', 'images', 'nave_1.png')
+imagem_path_nave2 = os.path.join(os.getcwd(), 'assets', 'images', 'nave_2.png')
+imagem_path_nave3 = os.path.join(os.getcwd(), 'assets', 'images', 'maicon.png')
+imagem_path_fuel = os.path.join(os.getcwd(), 'assets', 'images', 'fuel.png')
+imagem_path_fundo = os.path.join(os.getcwd(), 'assets', 'images', 'tela_fundo.png')
 
 imagem_aviao = pygame.image.load(imagem_path_aviao).convert_alpha()
 imagem_nave1 = pygame.image.load(imagem_path_nave1).convert_alpha()

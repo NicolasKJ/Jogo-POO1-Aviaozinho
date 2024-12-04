@@ -7,7 +7,7 @@ def exibir_menu(tela, tamanho_tela, cor_branco, cor_preto):
     fonte_opcoes = pygame.font.SysFont('space', 50, True, False)
     menu_ativo = True
 
-    imagem_path_menu = os.path.join(os.getcwd(), '..', 'assets', 'images', 'imagem_menu.png')
+    imagem_path_menu = os.path.join(os.getcwd(), 'assets', 'images', 'imagem_menu.png')
     imagem_menu = pygame.image.load(imagem_path_menu).convert_alpha()
     
     imagem_menu = pygame.transform.scale(imagem_menu, tamanho_tela)

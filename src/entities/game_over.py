@@ -8,7 +8,7 @@ def morreu(tela, tamanho_tela, cor_branco, pontos):
     fonte_pontos = pygame.font.SysFont('space', 40, True, False)  # Fonte para os pontos
     menu_ativo = True
 
-    imagem_path_game_over = os.path.join(os.getcwd(), '..', 'assets', 'images', 'game_over.png')
+    imagem_path_game_over = os.path.join(os.getcwd(), 'assets', 'images', 'game_over.png')
     imagem_menu = pygame.image.load(imagem_path_game_over).convert_alpha()
 
     while menu_ativo:
