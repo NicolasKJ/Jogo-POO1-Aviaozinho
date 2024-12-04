@@ -60,7 +60,7 @@ O jogo foi desenvolvido com forte uso de **programação orientada a objetos (PO
              self.morreu = False
      ```
 
-2. **Encapsulamento:**
+2. #### **Encapsulamento:**
    - As propriedades e métodos de cada classe são bem organizados e encapsulados. Por exemplo, a barra de combustível (`FuelBar`) controla sua atualização e desenho na tela de forma isolada.
      ```python
      class FuelBar:
