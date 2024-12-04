@@ -5,7 +5,7 @@ class Bullet:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.velocidade = -10
+        self.velocidade = -12
         self.largura = 5 
         self.altura = 10
         self.cor = (255, 0, 0) 

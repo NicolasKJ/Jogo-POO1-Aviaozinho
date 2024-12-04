@@ -9,6 +9,8 @@ def exibir_menu(tela, tamanho_tela, cor_branco, cor_preto):
 
     imagem_path_menu = os.path.join(os.getcwd(), '..', 'assets', 'images', 'imagem_menu.png')
     imagem_menu = pygame.image.load(imagem_path_menu).convert_alpha()
+    
+    imagem_menu = pygame.transform.scale(imagem_menu, tamanho_tela)
 
     while menu_ativo:
         tela.fill(cor_branco)

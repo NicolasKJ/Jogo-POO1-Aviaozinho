@@ -34,7 +34,7 @@ fundo_sound = pygame.mixer.Sound(os.path.join(os.getcwd(), '..', 'assets', 'soun
 pygame.mixer.music.load("../assets/sounds/musica_fundo.mp3")
 pygame.mixer.music.play(-1)
 
-pygame.display.set_caption('River Raid')
+pygame.display.set_caption('Olha o Aviãozinho')
 tela = pygame.display.set_mode(tamanho_tela)
 
 imagem_path_aviao = os.path.join(os.getcwd(), '..', 'assets', 'images', 'aviao.png')
@@ -89,7 +89,7 @@ while True:
     taxa_geracao_fuel = 3.5 * 60  # em clocks
 
     # Variavel para determinar a aleatoriedade da geracao de inimigos
-    fim = 60
+    fim = 50
 
     tempo = 0  # Quanto tempo foi percorrido em clocks
 
@@ -183,7 +183,7 @@ while True:
             ultimo_tiro = agora
 
         # Criar novos inimigos
-        if tempo % 200 == 0 and fim >= 20:
+        if tempo % 200 == 0 and fim >= 15:
             fim -= 2
         if randint(1, fim) == 10:
             if randint(1, 3) == 3:
