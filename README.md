@@ -114,6 +114,8 @@ O jogo foi desenvolvido com programação orientada a objetos, abaixo estão os 
      ```bash
      pip install pygame
      ```
+2. Faça o download do projeto clicando no botão Code → Download ZIP
+
 3. Organize os arquivos e pastas conforme o projeto:
    ```
    projeto/
