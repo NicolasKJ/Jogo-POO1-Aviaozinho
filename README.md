@@ -107,9 +107,9 @@ O jogo foi desenvolvido com programação orientada a objetos, abaixo estão os 
 #### **4. Como Executar**
 1. Certifique-se de ter o Python 3.10+ e o Pygame instalados.
     - Instale o Python:
-       -Acesse o site oficial do Python: https://www.python.org/downloads/.
-       -Faça o download da versão mais recente (recomendada para o seu sistema operacional).
-       -Durante a instalação, marque a opção "Add Python to PATH".
+       Acesse o site oficial do Python: https://www.python.org/downloads/.
+       Faça o download da versão mais recente (recomendada para o seu sistema operacional).
+       Durante a instalação, marque a opção "Add Python to PATH".
     - Instale o Pygame com:
      ```bash
      pip install pygame
