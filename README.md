@@ -3,7 +3,7 @@ Jogo para trabalho final de INE5402-01208B (20242) - Programação Orientada a O
 Desenvolvido por Nicolas Kotelak Junges, Tiago Augusto Raimundi e Rogério Batisti Junior
 
 
-### **Relatório do Jogo: "Olha o Aviãozinho"**
+### **Relatório do Jogo:
 
 ---
 
