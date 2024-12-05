@@ -8,7 +8,7 @@ Desenvolvido por Nicolas Kotelak Junges, Tiago Augusto Raimundi e Rogério Batis
 ---
 
 #### **1. Introdução**
-O jogo "Olha o Aviãozinho" é inspirado em clássicos de navegação vertical, como *River Raid*. Foi desenvolvido utilizando a biblioteca Pygame e tem como objetivo testar a habilidade do jogador em desviar de obstáculos, abater inimigos e gerenciar recursos como combustível. O jogo oferece uma experiência desafiadora com elementos progressivos que aumentam a dificuldade conforme o tempo.
+O jogo "Olha o Aviãozinho" é inspirado em clássicos de navegação vertical, como *River Raid*. Foi desenvolvido utilizando a biblioteca Pygame e tem como objetivo testar a habilidade do jogador em desviar de obstáculos, abater inimigos e gerenciar combustível. A velocidade e a frequência de geração de inimigos aumenta conforme o tempo, deixando o jogo cada vez mais desafiador.
 
 ---
 
@@ -30,8 +30,8 @@ O jogo "Olha o Aviãozinho" é inspirado em clássicos de navegação vertical, 
 
 #### **3. Modo de Jogar**
 1. **Iniciar o Jogo:**
-   - Execute o arquivo principal do jogo usando `python`.
-   - Um menu inicial será exibido, permitindo o início do jogo.
+   - Execute o main.py do jogo usando `python`.
+   - Um menu inicial será exibido, com as opções sair ou jogar.
 2. **Durante o Jogo:**
    - Use as teclas de movimentação para controlar o avião e desviar de obstáculos.
    - Colete combustível para manter o avião em movimento.
@@ -43,7 +43,7 @@ O jogo "Olha o Aviãozinho" é inspirado em clássicos de navegação vertical, 
 ---
 
 #### **4. Conceitos de Orientação a Objetos**
-O jogo foi desenvolvido com forte uso de **programação orientada a objetos (POO)**, permitindo modularidade e reutilização de código. Abaixo estão os principais conceitos aplicados:
+O jogo foi desenvolvido com programação orientada a objetos, abaixo estão os principais conceitos aplicados:
 
 1. **Classes e Objetos:**
    - Cada elemento do jogo, como o avião, inimigos, balas e combustível, é representado por uma classe dedicada:
@@ -61,7 +61,7 @@ O jogo foi desenvolvido com forte uso de **programação orientada a objetos (PO
      ```
 
 2. #### **Encapsulamento:**
-   - As propriedades e métodos de cada classe são bem organizados e encapsulados. Por exemplo, a barra de combustível (`FuelBar`) controla sua atualização e desenho na tela de forma isolada.
+   - As propriedades de cada classe são organizadas e encapsuladas. Por exemplo, a barra de combustível (`FuelBar`) controla sua atualização e desenho na tela de forma isolada.
      ```python
      class FuelBar:
          def __init__(self, x, y, width, height):
@@ -75,19 +75,9 @@ O jogo foi desenvolvido com forte uso de **programação orientada a objetos (PO
          def draw(self, tela):
              # Desenha a barra de combustível na tela
      ```
-
-3. **Herança:**
-   - Aparentemente não há herança explícita no código enviado, mas poderia ser aplicada para criar diferentes tipos de inimigos com uma classe base.
-
-4. **Polimorfismo:**
-   - As entidades usam métodos semelhantes (ex.: `movimentar` e `desenhar`), mas implementam comportamentos específicos, exemplificando o polimorfismo.
-
-5. **Responsabilidade Única:**
-   - Cada classe tem uma responsabilidade bem definida, promovendo um código modular.
-
 ---
 
-#### **5. Trechos de Código**
+#### **3. Trechos de Código**
 - **Criação e Atualização de Inimigos:**
   ```python
   x_random = random.randint(0, tamanho_tela[0] - imagem_nave1.get_width())
@@ -114,13 +104,17 @@ O jogo foi desenvolvido com forte uso de **programação orientada a objetos (PO
 
 ---
 
-#### **6. Como Executar**
+#### **4. Como Executar**
 1. Certifique-se de ter o Python 3.10+ e o Pygame instalados.
-   - Instale o Pygame com:
+    - Instale o Python:
+       -Acesse o site oficial do Python: https://www.python.org/downloads/.
+       -Faça o download da versão mais recente (recomendada para o seu sistema operacional).
+       -Durante a instalação, marque a opção "Add Python to PATH".
+    - Instale o Pygame com:
      ```bash
      pip install pygame
      ```
-2. Organize os arquivos e pastas conforme o projeto:
+3. Organize os arquivos e pastas conforme o projeto:
    ```
    projeto/
    ├── src/
@@ -133,7 +127,7 @@ O jogo foi desenvolvido com forte uso de **programação orientada a objetos (PO
    │   ├── images/
    ├── main.py
    ```
-3. Execute o jogo:
+4. Execute o jogo:
    ```bash
    python main.py
    ```
